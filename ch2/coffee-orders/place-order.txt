@@ -1,0 +1,47 @@
+@startuml
+skinparam monochrome true
+
+title Coffee Order Internals\na minimal view
+
+hide fields
+
+package control {
+    interface OrderRepository
+    OrderNotificationService : +notifyOrderStatus()
+}
+
+package boundary #FFFFFF {
+    OrdersResource : +newOrder()
+    OrdersResource -> OrderRepository: create
+    OrdersResource -> OrderNotificationService : notify
+    OrderEventsResource : +streamEvents()
+}
+
+' Layout boundary under control
+boundary -[hidden]- control
+
+
+
+package control #FFFFFF {
+
+    OrderRepository : +create()
+    OrderRepository ..|> OrderInMemoryRepository
+    OrderInMemoryRepository : +create()
+
+    OrderRepository ..|> OrderJPARepository
+    OrderJPARepository : +create()
+    Barista : -makeCoffee()
+}
+
+package entity #FFFFFF {
+    hide members
+    class OrderChangeEvent
+    class Mail
+    class CoffeRequest
+    class CoffeeOrder
+    enum Size
+    enum OrderStatus
+}
+
+
+@enduml

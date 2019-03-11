@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Coffee Shop</title>
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  </head>
+  <body>
+    <div id="mainContainer" class="clearfix">
+      <div>
+        <h2>Welcome to Coffee Shop</h2>
+        <div class="form" id="coffeeForm">
+          <p>
+            <label for="email"><span class="mandatory">*</span>Email</label>
+            <input type="text" class="form-control" id="email">
+          </p>
+          <p>
+            <!-- This will be dynamically loaded from backend -->
+            <label for="drink">Drink </label>
+            <select name="drink" id="drink" class="form-control"></select>
+          </p>
+
+          <p>
+            <!-- This could be dynamic too, but kept simple for the example -->
+            <label>Size  </label>
+            <select name="size" id="size" class="form-control">
+              <option value="SMALL">Small</option>
+              <option value="REGULAR" selected>Regular</option>
+              <option value="LARGE">Large</option>
+            </select>
+          </p>
+
+          <p><label>Amount </label>&#8377;<span id="total"></span></p>
+
+          <button id="createOrder" class="btn btn-custom">Place Order</button>
+          &nbsp;
+          <button id="clear" class="btn btn-custom">Clear Status</button>
+        </div>
+        <div class="listing">
+          <div class="column">
+              <p>Order Accepted</p>
+              <ul id="queue-list"></ul>
+          </div>
+          <div class="column">
+              <p>Order Ready</p>
+              <ul id="status-list"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="clear">&nbsp;</div>
+    </div>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

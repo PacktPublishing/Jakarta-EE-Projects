@@ -1,0 +1,25 @@
+version: '3'
+services:
+  coffee-client:
+    image: prashantpro/coffee-client
+    build:
+      context: ./coffee-client
+    ports:
+      - "80:80"
+#    links:
+#      - coffee-drinks
+#      - coffee-orders
+  coffee-drinks:
+    image: prashantpro/coffee-drinks
+    build:
+      context: ./coffee-drinks
+      dockerfile: Dockerfile.wildfly
+    ports:
+      - "8020:8080"
+  coffee-orders:
+    image: prashantpro/coffee-orders
+    build:
+      context: ./coffee-orders
+      dockerfile: Dockerfile.wildfly
+    ports:
+      - "8030:8080"
