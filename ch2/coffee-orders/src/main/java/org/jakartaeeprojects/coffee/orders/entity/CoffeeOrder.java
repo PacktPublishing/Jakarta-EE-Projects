@@ -2,6 +2,7 @@ package org.jakartaeeprojects.coffee.orders.entity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
@@ -16,6 +17,7 @@ public class CoffeeOrder {
     @Email
     private String customerEmail;
 
+    @NotBlank
     @NotEmpty
     private String drink;
     private Size size;

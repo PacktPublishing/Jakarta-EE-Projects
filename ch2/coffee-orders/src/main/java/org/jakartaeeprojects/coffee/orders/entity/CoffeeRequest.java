@@ -1,6 +1,7 @@
 package org.jakartaeeprojects.coffee.orders.entity;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -10,6 +11,7 @@ public class CoffeeRequest {
     @Email
     private String email;
 
+    @NotBlank
     @NotEmpty(message = "You must select a drink")
     private String drink;
 
