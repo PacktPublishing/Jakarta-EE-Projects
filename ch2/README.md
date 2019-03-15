@@ -17,7 +17,10 @@ There's also a script called `build-all.sh` which does the same.
 
 To build all the images using the default Dockerfile present in each of the projects:
 
-`docker-compose build`
+```sh
+docker-compose build
+```
+
 
 To build Docker images individually, you can navigate to each project folder root and run the docker build command.
 
@@ -41,7 +44,9 @@ Note: You should consider replacing "prashantpro" with your docker hub account i
 ## Command to run the containers
 (Note: It will build missing images first time, BUT will not rebuild images next time.)
 
-`docker-compose up`
+```sh
+docker-compose up
+```
 
 To kill the servers just press
 CTRL+C
@@ -50,11 +55,12 @@ The below will rebuild the images and run the containers
 
 ```sh
 docker-compose up --build
-`
+```
 
 OR
 
-To rebuild and run in background<br/>
+To rebuild and run in background
+
 ```sh
 docker-compose up --build -d
 ```
