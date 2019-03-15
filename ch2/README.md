@@ -3,7 +3,8 @@
 
 You can build the code for the Java projects by running the maven commands:
 
-```cd coffee-drinks
+```sh
+cd coffee-drinks
 mvn clean install
 
 cd ../coffee-orders
@@ -20,7 +21,8 @@ To build all the images using the default Dockerfile present in each of the proj
 
 To build Docker images individually, you can navigate to each project folder root and run the docker build command.
 
-```cd coffee-drinks
+```sh
+cd coffee-drinks
 docker build -t prashantpro/coffee-drinks .
 
 cd coffee-orders
@@ -46,13 +48,20 @@ CTRL+C
 
 The below will rebuild the images and run the containers
 
-`docker-compose up --build`
+```sh
+docker-compose up --build
+`
 
 OR
 
 To rebuild and run in background<br/>
-`docker-compose up --build -d`
+```sh
+docker-compose up --build -d
+```
 
 
 ## To remove (and shutdown) the containers
-`docker-compose down`
+```sh
+docker-compose down
+```
+
