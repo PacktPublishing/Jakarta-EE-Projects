@@ -6,20 +6,17 @@ services:
       context: ./coffee-client
     ports:
       - "80:80"
-#    links:
-#      - coffee-drinks
-#      - coffee-orders
   coffee-drinks:
     image: prashantpro/coffee-drinks
     build:
       context: ./coffee-drinks
-      dockerfile: Dockerfile.wildfly
+      dockerfile: Dockerfile
     ports:
       - "8020:8080"
   coffee-orders:
     image: prashantpro/coffee-orders
     build:
       context: ./coffee-orders
-      dockerfile: Dockerfile.wildfly
+      dockerfile: Dockerfile
     ports:
       - "8030:8080"
