@@ -1,7 +1,5 @@
 var source = new EventSource('http://localhost:8030/coffee-orders/resources/order-events');
-// source.onopen = function(event) {
-//   console.log('Opened event connection', event);
-// };
+
 source.addEventListener(
   'order',
   e => {
@@ -9,12 +7,19 @@ source.addEventListener(
   },
   false
 );
+
+/* More ways of listening to event */
+// source.onopen = function(event) {
+//   console.log('Opened event connection', event);
+// };
+
 // source.onmessage = function(event) {
 //   append(event.data);
 // };
 // source.onerror = function(event) {
 //   console.log(event);
 // };
+
 function append(data) {
   console.log('Order Event', data);
   const orderInfo = JSON.parse(data);
