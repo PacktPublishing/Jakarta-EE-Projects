@@ -76,7 +76,7 @@ class CoffeeService {
           // Inspect the headers in the response
           // response.headers.forEach(console.log);
           let error = new Error(response.headers.get('x-validation-error'))
-          error.response = response
+          error.response = response;
           throw error;
         } else {
           response.json();
