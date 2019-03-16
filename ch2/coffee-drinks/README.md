@@ -1,22 +1,24 @@
 # coffee-drinks
 
-TODO Description of the project here
+Microservice project to view coffees in the system.
 
-# Build
+# Build and Run
 
-See the `buildAndDeploy.sh` script
-
-
-See `run.sh`. It explains how you can run locally without constantly having to rebuild the whole docker image.
-You only need to rebuild the war file.
+See the `buildAndRun.sh` script
 
 
-You can follow the logging by running `logs.sh` when you run the local version
+You can check docker logs using `logs.sh` when you run locally.
 
-# Run and Build
 
-See the `buildAndrun.sh` script
+## Endpoints
 
-# Example endpoint
+Details on curl and other aspects are covered under `ch2`'s [README](../README.md)
+- When running using the provided script the Docker container will use a port binding of 8020 to container's 8080 port.
+- This makes the service available under localhost:8020
 
-[http://localhost:8080/coffee-drinks/rest/example](http://localhost:8080/coffee-drinks/rest/example)
+
+### All coffees
+[http://localhost:8020/coffee-drinks/resources/coffees](http://localhost:8020/coffee-drinks/resources/coffees)
+
+### A particular coffee type
+[http://localhost:8020/coffee-drinks/resources/coffees/Mocha](http://localhost:8020/coffee-drinks/resources/coffees/Mocha)
