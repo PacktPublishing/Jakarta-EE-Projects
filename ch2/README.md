@@ -78,3 +78,77 @@ Once all the images are running in containers, you can open the browser and load
 ```sh
 http://localhost
 ```
+
+## Few curl commands to test the services
+
+### Get all coffee types
+This command will make a GET request to our `/coffees` resource. Which returns a JSON array.
+```sh
+⇒  curl -i http://localhost:8020/coffee-drinks/resources/coffees
+HTTP/1.1 200 OK
+...
+
+[
+  {
+    "basePrice": 3.89,
+    "type": "Flat White",
+    "variantPrice": {
+      "SMALL": 3.89,
+      "LARGE": 8.89,
+      "REGULAR": 5.89
+    }
+  },
+  .
+  .
+]
+```
+
+### Get a particular coffee type
+The next, curl will request a particular type of coffee using the request URI `/coffees/<coffee type>`.
+
+```sh
+⇒  curl -i http://localhost:8020/coffee-drinks/resources/coffees/Mocha
+HTTP/1.1 200 OK
+...
+
+{
+  "basePrice": 4.19,
+  "type": "Mocha",
+  "variantPrice": {
+    "SMALL": 4.19,
+    "LARGE": 9.19,
+    "REGULAR": 6.19
+  }
+}
+```
+
+### Subscribe to Server-Sent events to listen for order updates
+This can be opened in a new terminal window and kept running, so when we place orders from another terminal or client, we can see the updates showing up in this terminal.
+
+```sh
+⇒  curl -N --http2 -H "Accept:text/event-stream" \
+http://localhost:8030/coffee-orders/resources/order-events
+
+event: order
+id: 2
+data: {"created":"2019-03-16T10:56:20.243","customerEmail":"jack@example.org","drink":"Mocha","id":2,"status":"ACCEPTED"}
+
+event: order
+id: 2
+data: {"created":"2019-03-16T10:56:20.243","customerEmail":"jack@example.org","drink":"Mocha","id":2,"status":"READY"}
+```
+### Place a coffee request (order) using HTTP POST  request.
+
+```sh
+⇒  curl -i \
+	-H "Content-Type: application/json" \
+	-X POST -d '{"email":"jack@example.org", "drink":"Mocha", "size": "REGULAR"}' \
+	http://localhost:8030/coffee-orders/resources/orders
+
+HTTP/1.1 202 Accepted
+Location: http://localhost:8030/coffee-orders/resources/orders/3
+...
+
+{"order":3}
+```
+
