@@ -4,7 +4,6 @@
         <feature>javaee-8.0</feature>
         <feature>microProfile-2.2</feature>
         <feature>monitor-1.0</feature>
-        <feature>usr:opentracingZipkin-0.31</feature>
     </featureManager>
 
     <dataSource id="DefaultDataSource" jdbcDriverRef="h2-driver">
@@ -13,14 +12,5 @@
 
     <mpMetrics authentication="false"/>
 
-    <basicRegistry id="basic" realm="MicroProfileMetrics">
-        <user name="admin" password="adminadmin"/>
-    </basicRegistry>
-
-    <administrator-role>
-        <user>admin</user>
-    </administrator-role>
-
-    <opentracingZipkin host="jaeger" port="9411"/>
 
 </server>
