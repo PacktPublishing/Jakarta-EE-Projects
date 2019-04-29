@@ -1,0 +1,21 @@
+global:
+  scrape_interval:  15s
+  external_labels:
+    monitor: 'microservice-monitor'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'product-ads'
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['product-ads:8080']
+      
+  - job_name: 'product-catalogs'
+    scrape_interval: 5s
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['product-catalogs:9080']

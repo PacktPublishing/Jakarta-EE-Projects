@@ -1,0 +1,15 @@
+version: "3"
+services:
+
+  product-ads:
+    build: ./product-ads
+    image: prashantpro/product-ads:1.0
+    ports:
+      - 8080:8080
+
+  product-catalogs:
+    build: ./product-catalogs
+    image: prashantpro/product-catalogs:1.0
+    ports:
+      - 9080:9080
+      - 9443:9443
