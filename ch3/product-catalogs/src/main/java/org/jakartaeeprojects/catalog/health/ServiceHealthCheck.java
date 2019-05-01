@@ -14,7 +14,7 @@ public class ServiceHealthCheck implements HealthCheck {
     public HealthCheckResponse call() {
 
         return HealthCheckResponse.named("ping")
-                .down()
+                .up()
                 .withData("service","running")
                 .build();
 
