@@ -1,7 +1,7 @@
 
 # Getting started
 
-You can build the code for the projects by running the maven commands from the `ch3` folder.
+You can build the code for the projects by running the commands from the `ch3` folder.
 
 ## Building the services with one command
 From the ch3 folder, execute the script file, which is a convinience script, called `build-all.sh`
@@ -46,7 +46,7 @@ docker build . -t prashantpro/product-ads:1.0
 
 Note: You should consider replacing "prashantpro" with your docker hub account id. If you intend to use this image to pull and publish to docker hub.
 
-## Command to run the containers
+## Command to run the containers without Prometheus
 (Note: It will build missing images first time, BUT will not rebuild images next time.)
 
 ```sh
@@ -67,16 +67,33 @@ To rebuild and run in background
 ```sh
 docker-compose up --build -d
 ```
+## Command to run the containers with Prometheus
+(Note: This is mostly the same commands, but we just specify a different compose file.)
+
+```sh
+docker-compose -f docker-compose-prom.yml up
+```
+
+To kill the servers just press
+`CTRL+C`
+
+Open Prometheus URL by visiting this link
+
+```sh
+http://localhost:9090
+```
 
 ## To remove (and shutdown) the containers
 ```sh
-docker-compose down
+docker-compose -f  docker-compose-prom.yml down
 ```
 
-Once all the images are running in containers, you can open the browser and load the REST API urls
+Once all the images are running in containers, you can open the browser and load few REST API urls to try out.
 
 ```sh
 http://localhost:9080/product-catalogs/resources/books
+http://localhost:9080/product-catalogs/resources/authors
+http://localhost:8080/resources/ads/Programming
 ```
 
 ## Few curl commands to test the services
@@ -147,13 +164,28 @@ HTTP/1.1 200 OK
 ...
 
 {
-  "author": "Prashant",
+  "adList": [
+    {
+      "desc": "Jump on board and work at lightspeed",
+      "link": "https://openliberty.io"
+    },
+    {
+      "desc": "Optimised for microservice architectures",
+      "link": "https://thorntail.io"
+    }
+  ],
+  "author": "Prashant Padmanabhan",
   "category": "Programming",
   "id": 2,
   "isbn10": "1539412004",
   "isbn13": "9781539412004",
   "price": 400,
   "reviewCount": 3,
+  "reviews": [
+    "Awesome book",
+    "Good choice",
+    "Too technical"
+  ],
   "status": "AVAILABLE",
   "title": "Java EE 8 and Angular"
 }
@@ -199,7 +231,7 @@ HTTP/1.1 200 OK
 
 ### Get a particular author
 ```sh
-⇒  curl -i http://localhost:9080/product-catalogs/resources/authors1
+⇒  curl -i http://localhost:9080/product-catalogs/resources/authors/1
 HTTP/1.1 200 OK
 
 {
@@ -215,7 +247,7 @@ HTTP/1.1 200 OK
 ```sh
 ⇒  curl -i \
 	-H "Content-Type: application/json" \
-	-X POST -d '{"title":"Java EE 8 and Angular", "category":"Programming", "status": "AVAILABLE", "price": "900.00", "author": {"email": "prashantp@xyz.org"}}'
+	-X POST -d '{"title":"Java EE 8 and Angular", "category":"Programming", "status": "AVAILABLE", "price": "900.00", "author": {"email": "prashantp@xyz.org"}}' \
 	http://localhost:9080/product-catalogs/resources/books
 
 HTTP/1.1 202 Accepted
