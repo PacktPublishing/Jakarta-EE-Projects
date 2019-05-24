@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:of="http://omnifaces.org/functions">
+
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <title>#{tenantConfig.get('brand')}</title>
+
+    <ui:insert name="head"/>
+</h:head>
+
+<h:body>
+    <header>
+        <ui:insert name="menu">
+            <h1>Welcome to #{tenantConfig.get('brand')}</h1>
+
+            <ui:include src="includes/nav.xhtml"/>
+        </ui:insert>
+    </header>
+    <main>
+        <ui:insert name="content"/>
+    </main>
+    <aside>
+        <h:graphicImage name="images/spares.svg" width="150" />
+    </aside>
+    <footer>
+        <ui:insert name="footer"/>
+        <ui:include src="includes/footer.xhtml"/>
+    </footer>
+
+
+    <h:outputStylesheet name="/css/style.css"/>
+    <h:outputScript name="/js/app.js"/>
+</h:body>
+</html>

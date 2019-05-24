@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+
+  reverse-proxy: 
+    image: traefik:v1.7.2
+    restart: always
+    command: --docker --api
+    ports:
+      - 80:80
+      - 443:443
+      - 8000:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  db:
+    image: mysql:8.0
+    ports:
+       - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 33061:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+    volumes:
+      - ${PWD}/init:/docker-entrypoint-initdb.d/:ro
+
+  app:
+    image: prashantpro/spares:1.0
+    build: ./spares
+    ports:
+      - 8080
+    depends_on:
+      - db
+    labels:
+      - "traefik.backend=sparesapp"
+      - "traefik.port=8080"
+      - "traefik.acme.frontend.rule=Host:acme.localhost"
+      - "traefik.acme.frontend.headers.customRequestHeaders=X-Tenant-ID:ACME_123"
+      - "traefik.infi.frontend.rule=Host:infi.localhost"      
+      - "traefik.infi.frontend.headers.customRequestHeaders=X-Tenant-ID:INFI_456"

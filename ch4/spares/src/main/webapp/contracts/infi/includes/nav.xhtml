@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <div id="menu">
+        <ul>
+            <li><h:link outcome="/app/home">Home</h:link></li>
+            <li><h:link outcome="/app/parts">Browse Parts</h:link></li>
+            <c:if test="#{userSession.present}">
+                <li>
+                    <h:form>
+                        <h:commandLink action="#{logoutBacking.submit}" value="Exit"/>
+                    </h:form>
+                </li>
+            </c:if>
+        </ul>
+    </div>
+</ui:composition>

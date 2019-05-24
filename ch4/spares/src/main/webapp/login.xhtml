@@ -1,0 +1,35 @@
+<f:view contracts="#{tenantConfig.get('theme')}"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="content">
+            <div class="login-wrapper">
+                <p>
+                    <h:messages/>
+                </p>
+                <p>
+                    <br/>Test users: <code>admin@acme.org</code> for Acme Site, <code>admin@infi.org</code> for Infi Site
+                    <br/>Test password: <code>secret</code>
+                </p>
+                <h:form id="login" class="login-form">
+
+
+                    <h:outputLabel for="email" value="Email"/>
+                    <h:inputText id="email" required="true" value="#{loginBacking.user.email}"/>
+
+                    <h:outputLabel for="password" value="Password"/>
+                    <h:inputSecret id="password" required="true" value="#{loginBacking.user.password}"/>
+
+
+                    <h:commandButton id="submit" value="Login" action="#{loginBacking.submit}"/>
+                    <p>If you need any other help, please contact the helpdesk.</p>
+
+                </h:form>
+            </div>
+
+        </ui:define>
+    </ui:composition>
+</f:view>

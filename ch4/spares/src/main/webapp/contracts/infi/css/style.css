@@ -1,0 +1,182 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  background: #7b7ae2;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 150px auto 150px;
+  grid-template-rows: 110px auto 50px;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+aside,
+main{
+  background: #ffffff;
+}
+
+header,
+footer {
+background: black;
+  grid-column: 1 / 4;
+}
+
+main {
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px 0;
+  margin: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+## Login form .login-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.login-form {
+  display: grid;
+  padding: 2em;
+  background: #f9f9f9;
+  border: 1px solid #c1c1c1;
+  width: 100%;
+  height: 290px;
+}
+
+.login-form input {
+  background: #fff;
+  border: 1px solid #9c9c9c;
+}
+
+
+.login-form label {
+  padding: 0.5em 0.5em 0.5em 0;
+}
+
+.login-form input {
+  padding: 0.7em;
+  margin-bottom: 0.5rem;
+}
+.login-form input:focus {
+  outline: 3px solid gold;
+}
+
+#part-table {
+  width: 80%;
+}
+header {
+    color: white;
+}
+
+header > h1 {
+    margin-left: 50px;
+}
+
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+footer ul > li {
+  float: left;
+}
+
+footer ul > li > a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+  color: white;
+}
+
+#menu > ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #7b7ae2;
+}
+
+aside {
+    background-color: #7b7ae2;
+}
+
+#menu ul > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+#menu ul > li a:hover {
+  background-color: white;
+  color: black;
+}
+
+
+main {
+ padding: 20px;
+}
+
+.filter {
+     margin-bottom: 20px;
+ }
+
+ .filter label {
+  margin-right: 10px;
+ }
+ 
+ 
+ table.parts {
+     width: 100%;
+     border-collapse: collapse; /* so we can control cellspacing in a practical way */
+     border-bottom:0; /* you may not want the bottom of your table have spacing */
+ }
+  
+ table.parts th,
+ table.parts td {
+     padding: 5px;
+     text-align: left;
+     font-family: Arial, Verdana, sans-serif;
+     border: 4px solid #000; /* this can be seen as cellspacing... */
+     border-bottom:0;
+ }
+  
+ /* you may not want the top of your table have spacing */
+ table.parts th {
+     border-top: 0;
+ }
+  
+ /* you may not want the left most and right most side of your table have spacing */
+ table.parts th.first,
+ table.parts td.name {
+     border-left: 0;
+ }
+  
+ table.parts th.last,
+ table.parts td.dateOfBirth {
+     border-right: 0;
+ }
+  
+ table.parts th {
+     background-color: #ddd;
+     color: #BB0000;
+ }
+  
+ table.parts tr.odd {
+     background-color: #DDFFFF;
+ }
+  
+ table.parts tr.even {
+     background-color: #FBFBFB;
+ }

@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:dataTable var="part" id="part-table" value="#{sparePartsBacking.parts}"
+                 styleClass="parts"
+                 cellspacing="0"
+                 cellpadding="0"
+                 border="0"
+                 rowClasses="odd,even">
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{part.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Description</f:facet>
+            #{part.desc}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Brand</f:facet>
+            #{part.brand}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Price</f:facet>
+            #{part.price}
+        </h:column>
+    </h:dataTable>
+
+
+</ui:composition>
