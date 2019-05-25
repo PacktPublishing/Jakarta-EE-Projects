@@ -37,13 +37,6 @@ public class SparePartService {
         return query.getResultList();
     }
 
-    public List<SparePart> loadPartsByCategory(String category) {
-        Query query = this.em.createQuery("FROM SparePart p WHERE p.category = :category",
-                SparePart.class);
-        query.setParameter("category", category);
-        return query.getResultList();
-    }
-
     public List<String> getBrands() {
         Query query = this.em.createQuery("SELECT distinct p.brand FROM SparePart p",
                 String.class);

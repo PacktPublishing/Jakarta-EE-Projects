@@ -41,13 +41,10 @@ public class SparePartsBacking implements Serializable {
     }
 
     public void setSelectedBrand(String selectedBrand) {
-        System.out.println("selected");
         this.selectedBrand = selectedBrand;
-        if(this.selectedBrand == null) {
-            System.out.println("selected loadAll");
+        if (this.selectedBrand == null) {
             this.loadAll();
         } else {
-            System.out.println("selected brand is " + selectedBrand);
             this.parts = this.service.loadPartsByBrand(selectedBrand);
         }
     }

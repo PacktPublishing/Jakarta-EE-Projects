@@ -4,13 +4,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
     <div id="menu">
         <ul>
-            <li><h:link outcome="/app/home">Home</h:link></li>
-            <li><h:link outcome="/app/parts">Parts</h:link></li>
+            <li>
+                <h:link outcome="/app/home">Home</h:link>
+            </li>
+            <li>
+                <h:link outcome="/app/parts">Parts</h:link>
+            </li>
             <c:if test="#{userSession.present}">
                 <li>
-                <h:form>
-                    <h:commandLink action="#{logoutBacking.submit}" value="Exit"/>
-                </h:form>
+                    <h:form>
+                        <h:commandLink action="#{logoutBacking.submit}" value="Exit"/>
+                    </h:form>
                 </li>
             </c:if>
         </ul>

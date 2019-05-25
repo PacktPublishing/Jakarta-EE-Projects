@@ -20,20 +20,20 @@
 		<role-name>ADMIN</role-name>
 	</security-role>
 
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
+<!--	<context-param>-->
+<!--		<param-name>javax.faces.PROJECT_STAGE</param-name>-->
+<!--		<param-value>Development</param-value>-->
+<!--	</context-param>-->
 
-	<context-param>
-		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-		<param-value>true</param-value>
-	</context-param>
+<!--	<context-param>-->
+<!--		<param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>-->
+<!--		<param-value>true</param-value>-->
+<!--	</context-param>-->
 
-	<context-param>
-		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
-		<param-value>true</param-value>
-	</context-param>
+<!--	<context-param>-->
+<!--		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>-->
+<!--		<param-value>true</param-value>-->
+<!--	</context-param>-->
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -54,9 +54,9 @@
 		<location>/WEB-INF/errorpages/expired.xhtml</location>
 	</error-page>
 
-	<mime-mapping>
-		<extension>svg</extension>
-		<mime-type>image/svg+xml</mime-type>
-	</mime-mapping>
+<!--	<mime-mapping>-->
+<!--		<extension>svg</extension>-->
+<!--		<mime-type>image/svg+xml</mime-type>-->
+<!--	</mime-mapping>-->
 
 </web-app>

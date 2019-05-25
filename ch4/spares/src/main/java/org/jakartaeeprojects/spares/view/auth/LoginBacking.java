@@ -2,10 +2,10 @@ package org.jakartaeeprojects.spares.view.auth;
 
 import org.jakartaeeprojects.spares.auth.boundary.UserSession;
 import org.jakartaeeprojects.spares.auth.entity.User;
+import org.omnifaces.util.Messages;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
 
-import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 import static javax.security.enterprise.AuthenticationStatus.*;
 import static javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters.withParams;
 import static org.omnifaces.util.Faces.redirect;
@@ -33,6 +32,9 @@ public class LoginBacking implements Serializable {
 
     @Inject
     private SecurityContext securityContext;
+
+    @Inject
+    private ExternalContext externalContext;
 
     @Inject
     private FacesContext facesContext;
@@ -54,19 +56,16 @@ public class LoginBacking implements Serializable {
     public void submit() throws IOException {
         Credential credential = new UsernamePasswordCredential(user.getEmail(), new Password(user.getPassword()));
 
-        ExternalContext externalContext = getContext().getExternalContext();
-
-        AuthenticationStatus status = securityContext.authenticate((HttpServletRequest) externalContext.getRequest(),
+        AuthenticationStatus status = securityContext.authenticate(
+                (HttpServletRequest) externalContext.getRequest(),
                 (HttpServletResponse) externalContext.getResponse(),
                 withParams().credential(credential));
         if (status.equals(SEND_CONTINUE)) {
-            getContext().responseComplete();
+            facesContext.responseComplete();
         } else if (status.equals(SEND_FAILURE)) {
-            getContext().addMessage(null, new FacesMessage(SEVERITY_ERROR, "Login failed", null));
+            Messages.addGlobalError("Login failed");
         } else if (status.equals(SUCCESS)) {
-            getContext().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Login success", null));
-
-            externalContext.redirect(externalContext.getRequestContextPath() + "/app/parts.xhtml");
+            redirect("/app/parts.xhtml");
         }
     }
 
@@ -76,9 +75,5 @@ public class LoginBacking implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public FacesContext getContext() {
-        return facesContext;
     }
 }

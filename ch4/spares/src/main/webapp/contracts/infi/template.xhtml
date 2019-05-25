@@ -20,11 +20,6 @@
         <header>
             <ui:insert name="menu">
                 <h1>#{tenantConfig.get('brand')}</h1>
-                <c:if test="#{empty userSession.present}">
-                    <h:form>
-                        <h:commandLink action="#{logoutBacking.submit}" value="Logout"/>
-                    </h:form>
-                </c:if>
             </ui:insert>
         </header>
 
@@ -43,7 +38,6 @@
         </aside>
 
         <footer>
-            <ui:insert name="footer"/>
             <ui:include src="includes/footer.xhtml"/>
         </footer>
     </div>

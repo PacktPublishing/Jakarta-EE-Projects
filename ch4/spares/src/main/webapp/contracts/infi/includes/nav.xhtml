@@ -4,8 +4,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
     <div id="menu">
         <ul>
-            <li><h:link outcome="/app/home">Home</h:link></li>
-            <li><h:link outcome="/app/parts">Browse Parts</h:link></li>
+            <li>
+                <h:link outcome="/app/home">Home</h:link>
+            </li>
+            <li>
+                <h:link outcome="/app/parts">Browse Parts</h:link>
+            </li>
             <c:if test="#{userSession.present}">
                 <li>
                     <h:form>
