@@ -13,6 +13,7 @@ import org.jakartaeeprojects.catalog.entity.BookDto;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -54,7 +55,7 @@ public class BookResource {
             monotonic = true,
             description = "Number of times the list of books is requested")
     @GET
-    public Response getBooks(@DefaultValue("0") @QueryParam("start") int start,
+    public Response getBooks(@DefaultValue("0") @QueryParam("start") @PositiveOrZero int start,
                              @QueryParam("limit") int limit) {
         limit = limit > 0 ? limit : pageLimit;
 
@@ -91,32 +92,35 @@ public class BookResource {
             description = "The timings of add book method.",
             absolute = true)
     @POST
-    public Response add(@Valid BookAddRequest bookAddRequest,
+    public Response add(@Valid BookAddRequest request,
                         @Context UriInfo uriInfo) {
 
-        Book book = BookRequestMapper.toBook(bookAddRequest);
+        Book bookToSave = BookRequestMapper.toBook(request);
+        Author booksAuthor = mapBookToAuthor(request.getAuthor().getEmail(), bookToSave);
 
-        Optional<Author> author = authorService.getAuthorByEmail(
-                bookAddRequest.getAuthor().getEmail());
+        Book savedBook = this.authorService.addBook(
+                booksAuthor,
+                bookToSave,
+                IsbnGenerator::applyIsbn);
+
+        URI bookUri = uriInfo.getAbsolutePathBuilder()
+                .path(savedBook.getId() + "")
+                .build();
+
+        return Response.accepted(savedBook.getTitle())
+                .location(bookUri)
+                .build();
+    }
+
+    private Author mapBookToAuthor(String email, Book book) {
+        Optional<Author> author = authorService.getAuthorByEmail(email);
         if (!author.isPresent()) {
             throw new IllegalArgumentException("No such author");
         }
 
         Author theAuthor = author.get();
         theAuthor.addBook(book);
-
-        Book addedBook = this.authorService.addBook(
-                theAuthor,
-                book,
-                IsbnGenerator::applyIsbn);
-
-        URI bookUri = uriInfo.getAbsolutePathBuilder()
-                .path(addedBook.getId() + "")
-                .build();
-
-        return Response.accepted(addedBook.getTitle())
-                .location(bookUri)
-                .build();
+        return theAuthor;
     }
 
     @PUT
