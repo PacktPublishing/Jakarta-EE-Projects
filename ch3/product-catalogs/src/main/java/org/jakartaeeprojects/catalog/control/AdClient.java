@@ -16,10 +16,11 @@ public class AdClient {
 
     @Inject
     private Logger logger;
+    private static String AD_URL = "http://product-ads:9080/product-ads/resources";
 
     public List<Ad> getAds(String category) {
         try {
-            URL apiUri = new URL("http://product-ads:8080/resources");
+            URL apiUri = new URL(AD_URL);
 
             AdResourceService adSvc = RestClientBuilder.newBuilder()
                     .connectTimeout(800, TimeUnit.MILLISECONDS)
@@ -28,7 +29,7 @@ public class AdClient {
                     .build(AdResourceService.class);
             return adSvc.getAds(category);
         } catch (Exception urlError) {
-            logger.log(Level.SEVERE, null, urlError);
+            logger.log(Level.SEVERE, "Failed to get Ads", urlError);
         }
         return Collections.EMPTY_LIST;
     }

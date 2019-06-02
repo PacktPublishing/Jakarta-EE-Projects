@@ -3,13 +3,11 @@ package org.jakartaeeprojects.ads.boundary;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.jakartaeeprojects.ads.entity.ProductAd;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotBlank;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

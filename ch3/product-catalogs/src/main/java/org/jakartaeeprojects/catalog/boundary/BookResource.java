@@ -3,6 +3,7 @@ package org.jakartaeeprojects.catalog.boundary;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jakartaeeprojects.catalog.control.*;
 import org.jakartaeeprojects.catalog.entity.Author;
 import org.jakartaeeprojects.catalog.entity.Book;
@@ -41,12 +42,12 @@ public class BookResource {
     @Inject
     private AuthorService authorService;
 
-    @Inject
-    private AdClient client;
-
 //    @Inject
-//    @RestClient
-//    private AdResourceService client;
+//    private AdClient client;
+
+    @Inject
+    @RestClient
+    private AdResourceService client;
 
     @Counted(name = "bookAccessCount",
             absolute = true,

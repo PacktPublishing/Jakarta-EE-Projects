@@ -5,9 +5,11 @@ import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.jakartaeeprojects.ads.entity.ProductAd;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,8 @@ import java.util.List;
 import static java.util.Comparator.comparingDouble;
 import static java.util.stream.Collectors.toList;
 
-@ApplicationScoped
+@Startup
+@Singleton
 public class AdProvider {
 
     static final List<ProductAd> AD_LIST = new ArrayList<>();
@@ -24,7 +27,7 @@ public class AdProvider {
     @ConfigProperty(name = "default.adLimit", defaultValue = "3")
     private int defaultAdLimit;
 
-    @Inject
+    @PersistenceContext
     private EntityManager em;
 
     @PostConstruct
@@ -52,10 +55,8 @@ public class AdProvider {
                 "The Lord of the Rings",
                 6.0,
                 "General"));
-
-        em.getTransaction().begin();
-        AD_LIST.forEach(em::persist);
-        em.getTransaction().commit();
+        
+        AD_LIST.forEach(em::persist);        
     }
 
     //Never use this in production, it's just an example snippet

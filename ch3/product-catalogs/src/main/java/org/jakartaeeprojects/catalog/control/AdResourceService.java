@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/ads")
-@RegisterRestClient(baseUri = "http://product-ads:8080/resources")
+@RegisterRestClient
 @RegisterClientHeaders
 public interface AdResourceService {
 

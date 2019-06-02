@@ -10,96 +10,45 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-        <version.thorntail>2.4.0.Final</version.thorntail>
+        <failOnMissingWebXml>false</failOnMissingWebXml>        
         <version.h2>1.4.187</version.h2>
     </properties>
 
-
     <build>
         <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>thorntail-v2</id>
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+        <dependency>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>2.2</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
 
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.8.0</version>
-                        <configuration>
-                            <release>11</release>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.thorntail</groupId>
-                        <artifactId>thorntail-maven-plugin</artifactId>
-                        <version>${version.thorntail}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>package</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>io.thorntail</groupId>
-                        <artifactId>bom</artifactId>
-                        <version>${version.thorntail}</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
-
-            <dependencies>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>jaxrs</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>cdi</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>jpa</artifactId>
-                </dependency>
-
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>microprofile-config</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>microprofile-health</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>io.thorntail</groupId>
-                    <artifactId>microprofile-metrics</artifactId>
-                </dependency>
-
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>${version.h2}</version>
-                </dependency>
-
-            </dependencies>
-        </profile>
-    </profiles>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${version.h2}</version>
+        </dependency>
+    </dependencies>
 
 </project>

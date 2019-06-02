@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="OpenLiberty Server">
+    <featureManager>
+        <feature>javaee-8.0</feature>
+        <feature>microProfile-2.2</feature>
+        <feature>monitor-1.0</feature>
+    </featureManager>
+
+    <dataSource id="DefaultDataSource" jdbcDriverRef="h2-driver">
+        <properties URL="jdbc:h2:mem:sample-db;DB_CLOSE_DELAY=-1"/>
+    </dataSource>
+
+    <mpMetrics authentication="false"/>
+
+
+</server>
