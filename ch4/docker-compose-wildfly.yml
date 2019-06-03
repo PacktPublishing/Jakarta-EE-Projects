@@ -28,7 +28,7 @@ services:
     image: prashantpro/spares:1.0
     build: 
       context: ./spares
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.wildfly
     ports:
       - 8080
     depends_on:
