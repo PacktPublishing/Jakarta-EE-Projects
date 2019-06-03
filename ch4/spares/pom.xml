@@ -11,54 +11,28 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <version.thorntail>2.4.0.Final</version.thorntail>
         <version.mysql>8.0.11</version.mysql>
+        <version.hibernate>5.3.7.Final</version.hibernate>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.thorntail</groupId>
-                <artifactId>bom-all</artifactId>
-                <version>${version.thorntail}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    
     <dependencies>
         <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>jpa</artifactId>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>ejb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>jsf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>ee-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.thorntail</groupId>
-            <artifactId>cdi</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.3.7.Final</version>
-            <scope>provided</scope>
+            <version>${version.hibernate}</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
+            <version>${version.mysql}</version>
         </dependency>
 
         <dependency>
@@ -78,23 +52,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <release>11</release>
+                    <release>8</release>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>io.thorntail</groupId>
-                <artifactId>thorntail-maven-plugin</artifactId>
-                <version>${version.thorntail}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            </plugin>            
         </plugins>
     </build>
-
 
 </project>

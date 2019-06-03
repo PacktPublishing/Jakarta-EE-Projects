@@ -1,4 +1,7 @@
-FROM gcr.io/distroless/java:11
-ADD ./target/spares-thorntail.jar /app.jar
+FROM payara/micro:5.192
 
-ENTRYPOINT ["java", "-jar", "/app.jar", "-Djava.net.preferIPv4Stack=true"]
+COPY ./target/spares.war $DEPLOY_DIR
+
+#COPY ./target/spares.war $DEPLOY_DIR/ROOT.war
+
+CMD ["--deploymentDir", "/opt/payara/deployments", "--contextroot", "/"]

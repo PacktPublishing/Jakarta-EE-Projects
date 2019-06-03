@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toSet;
-import static org.infinispan.commons.util.Util.asSet;
 
 @Entity
 @Table(name = "user")
@@ -38,7 +38,7 @@ public class User {
     public User(String email, String password, Role... roles) {
         this.email = email;
         this.password = password;
-        this.roles = asSet(roles);
+        this.roles = Stream.of(roles).collect(toSet());
     }
 
     public long getId() {
