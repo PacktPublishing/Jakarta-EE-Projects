@@ -4,9 +4,13 @@ classes/
 target/
 .metadata
 .idea/
-*.iml
 nb-configuration.xml
 bin/
+
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
@@ -24,6 +28,13 @@ bin/
 .c9/
 *.launch
 .settings/
+.idea
+*.ipr
+*.iml
+*.iws
+
+# NetBeans
+nb-configuration.xml
 
 # IDE - VSCode
 .vscode/
@@ -50,7 +61,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/nokos-commons/nbproject/
 .env
 MANIFEST.MF
 .factorypath
