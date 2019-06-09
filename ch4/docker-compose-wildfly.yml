@@ -30,9 +30,7 @@ services:
       context: ./spares
       dockerfile: Dockerfile.wildfly
     ports:
-      - 8080:8080
-      - 9990:9990
-      - 8787:8787
+      - 8080
     depends_on:
       - db
     labels:
