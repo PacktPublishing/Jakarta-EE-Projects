@@ -5,7 +5,7 @@ services:
   reverse-proxy: 
     image: traefik:v1.7.2
     restart: always
-    command: --docker --api
+    command: --docker --api --logLevel=INFO
     ports:
       - 80:80
       - 443:443
