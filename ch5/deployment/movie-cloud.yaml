@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:  
+  name: movie-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-cloud
+  template:
+    metadata:      
+      labels:
+        app: movie-cloud
+    spec:
+      containers:
+      - name: movie-cloud
+        image: org.jakartaeeprojects/movie-cloud
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:  
+  name: movie-svc
+spec:
+  selector:
+    app: movie-cloud  
+  ports:
+    - port: 8080
+      name: http

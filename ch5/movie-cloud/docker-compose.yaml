@@ -1,0 +1,7 @@
+version: '3'
+services:
+  compose:
+    build: .
+    image: "org.jakartaeeprojects/movie-cloud"
+    ports:
+     - "8080:8080"
