@@ -46,12 +46,10 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: movie-cloud
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-    - http:
+    - host: kubernetes.local
+      http:
         paths:
           - path: /
             backend:
