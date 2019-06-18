@@ -42,16 +42,10 @@ public class MovieResource {
         }
         return catalog.list().stream().filter(m -> movieIds.contains(m.getId())).collect(toList());
     }
-//
-//    @GET
-//    @Path("/{movieId}")
-//    public Movie getMovie(@PathParam("movieId") long movieId) {
-//        return catalog.list(1).get(0);
-//    }
 
     @PUT
     @Path("/{movieId}")
-    public void rate(@PathParam("movieId") long movieId, @QueryParam("similar") long rating) {
+    public void rate(@PathParam("movieId") long movieId, @QueryParam("rating") long rating) {
         System.out.println("Movie " + movieId + ", with similar " + rating);
     }
 
