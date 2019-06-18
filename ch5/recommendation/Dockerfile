@@ -1,5 +1,5 @@
 FROM payara/micro:5.192
 
-COPY ./target/movie-cloud.war $DEPLOY_DIR
+COPY ./target/recommendation.war $DEPLOY_DIR
 
 CMD ["--deploymentDir", "/opt/payara/deployments","--nocluster"]

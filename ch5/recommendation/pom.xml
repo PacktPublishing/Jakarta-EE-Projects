@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jakartaeeprojects</groupId>
-    <artifactId>movie-cloud</artifactId>
+    <artifactId>recommendation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -12,7 +12,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -20,16 +20,9 @@
             <version>8.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>2.2</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>        
     </dependencies>
     <build>
-        <finalName>movie-cloud</finalName>
+        <finalName>recommendation</finalName>
     </build>
 
 </project>

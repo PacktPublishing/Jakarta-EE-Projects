@@ -1,7 +1,14 @@
 version: '3'
 services:
-  compose:
+  movie-cloud:
     build: ./movie-cloud
-    image: "org.jakartaeeprojects/movie-cloud"
+    image: "org.jakartaeeprojects/movie-cloud:1"
     ports:
      - "8080:8080"
+  
+  recommendation:
+    build: ./recommendation
+    image: "org.jakartaeeprojects/recommendation:1"
+    ports:
+     - "8081:8080"
+     - "8009:8009"

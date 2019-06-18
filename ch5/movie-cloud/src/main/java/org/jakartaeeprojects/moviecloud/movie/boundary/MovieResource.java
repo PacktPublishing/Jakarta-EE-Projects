@@ -1,21 +1,58 @@
 package org.jakartaeeprojects.moviecloud.movie.boundary;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jakartaeeprojects.moviecloud.movie.control.SuggestionResourceService;
+import org.jakartaeeprojects.moviecloud.movie.entity.Movie;
+
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import static java.util.stream.Collectors.toList;
 
-@Path("ping")
+@Path("/movies")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class MovieResource {
 
     @Inject
-    @ConfigProperty(name = "message")
-    String message;    
+    private MovieCatalog catalog;
+
+    @Inject
+    @RestClient
+    private SuggestionResourceService suggestionService;
 
     @GET
-    public String hello() {
-        return this.message + " Jakarta EE with MicroProfile 2+!";
+    public List<Movie> getMovies() {
+        return catalog.list();
+    }
+
+    @GET
+    @Path("/recommended")
+    public List<Movie> getRecommended(@QueryParam("userId") long userId) {
+        List<Long> movieIds = this.suggestionService.findSuggested(userId);
+        System.out.println("Got back");
+        movieIds.forEach(System.out::println);
+
+        if(movieIds.isEmpty()) {
+            System.out.println("show all");
+            return catalog.list();
+        }
+        return catalog.list().stream().filter(m -> movieIds.contains(m.getId())).collect(toList());
+    }
+//
+//    @GET
+//    @Path("/{movieId}")
+//    public Movie getMovie(@PathParam("movieId") long movieId) {
+//        return catalog.list(1).get(0);
+//    }
+
+    @PUT
+    @Path("/{movieId}")
+    public void rate(@PathParam("movieId") long movieId, @QueryParam("similar") long rating) {
+        System.out.println("Movie " + movieId + ", with similar " + rating);
     }
 
 }
