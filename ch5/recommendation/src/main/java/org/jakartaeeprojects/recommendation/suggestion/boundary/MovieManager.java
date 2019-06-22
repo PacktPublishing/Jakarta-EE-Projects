@@ -1,17 +1,17 @@
 package org.jakartaeeprojects.recommendation.suggestion.boundary;
 
-import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
-
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import java.net.URI;
 import java.net.URISyntaxException;
+import javax.enterprise.context.ApplicationScoped;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Stream;
+
+import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toSet;
@@ -50,14 +50,6 @@ public class MovieManager {
         return new UserRating(Long.valueOf(movie[0]),
                 Long.valueOf(movie[1]),
                 Integer.valueOf(movie[2]));
-    }
-
-    public void addUserRating(long movieId, long userId, int rating) {
-        Set<UserRating> existingRatings = ratingsMap.get(userId);
-        UserRating newUserRating = new UserRating(userId, movieId, rating);
-        if (!existingRatings.contains(newUserRating)) {
-            existingRatings.add(newUserRating);
-        }
     }
 
     public Map<Long, Set<UserRating>> getRatingsMap() {

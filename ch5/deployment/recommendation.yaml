@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: movie-cloud
+  name: recommendation
   labels:
-    app: movie-cloud
+    app: recommendation
 spec:
   selector:
-    app: movie-cloud
+    app: recommendation
   ports:
     - port: 8080
       name: http
@@ -15,21 +15,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: movie-cloud
+  name: recommendation
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: movie-cloud
+      app: recommendation
   template:
     metadata:
       labels:
-        app: movie-cloud
+        app: recommendation
         version: v1
     spec:
       containers:
-      - name: movie-cloud
-        image: org.jakartaeeprojects/movie-cloud:1
+      - name: recommendation
+        image: org.jakartaeeprojects/recommendation:1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080        

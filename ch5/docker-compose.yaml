@@ -9,6 +9,3 @@ services:
   recommendation:
     build: ./recommendation
     image: "org.jakartaeeprojects/recommendation:1"
-    ports:
-     - "8081:8080"
-     - "8009:8009"

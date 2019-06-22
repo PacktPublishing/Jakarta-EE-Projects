@@ -2,6 +2,7 @@ package org.jakartaeeprojects.moviecloud.movie.boundary;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jakartaeeprojects.moviecloud.movie.control.SuggestionResourceService;
+import org.jakartaeeprojects.moviecloud.movie.control.UserRatingResourceService;
 import org.jakartaeeprojects.moviecloud.movie.entity.Movie;
 
 import javax.inject.Inject;
@@ -24,6 +25,10 @@ public class MovieResource {
     @RestClient
     private SuggestionResourceService suggestionService;
 
+    @Inject
+    @RestClient
+    private UserRatingResourceService ratingService;
+
     @GET
     public List<Movie> getMovies() {
         return catalog.list();
@@ -45,8 +50,10 @@ public class MovieResource {
 
     @PUT
     @Path("/{movieId}")
-    public void rate(@PathParam("movieId") long movieId, @QueryParam("rating") long rating) {
+    public void rate(@PathParam("movieId") long movieId,@QueryParam("userId") long userId,
+                     @QueryParam("rating") int rating) {
         System.out.println("Movie " + movieId + ", with similar " + rating);
+        this.ratingService.rateMovie(userId, movieId, rating);
     }
 
 }
