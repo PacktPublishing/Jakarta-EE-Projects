@@ -1,9 +1,11 @@
 package org.jakartaeeprojects.moviecloud.movie.boundary;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jakartaeeprojects.moviecloud.movie.entity.Movie;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +13,10 @@ import java.util.List;
 public class MovieCatalog {
 
     private List<Movie> movieList;
+
+    @Inject
+    @ConfigProperty(name="movie.limit", defaultValue = "10")
+    private Integer limit;
 
     @PostConstruct
     private void init() {
@@ -30,6 +36,10 @@ public class MovieCatalog {
     }
 
     public List<Movie> list() {
-        return this.movieList;
+        return this.movieList.subList(0,limit);
+    }
+
+    public List<Long> defaultRecommendation() {
+        return Arrays.asList(150L, 250L, 260L);
     }
 }

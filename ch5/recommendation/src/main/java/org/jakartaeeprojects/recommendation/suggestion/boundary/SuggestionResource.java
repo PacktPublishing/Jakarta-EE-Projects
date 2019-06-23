@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Path("suggestions")
 @Produces(MediaType.APPLICATION_JSON)
@@ -19,10 +20,11 @@ public class SuggestionResource {
     @GET
     @Path("/{userId}")
     public List<Long> findSuggested(@PathParam("userId") long userId) {
-        try {
-            return generator.suggestMoviesForUser(userId);
-        } catch (Exception e) {
-            return Collections.EMPTY_LIST;
-        }
+//        try {
+            throw new RuntimeException("Fault injected");
+//            return generator.suggestMoviesForUser(userId);
+//        } catch (Exception e) {
+//            return Collections.EMPTY_LIST;
+//        }
     }
 }

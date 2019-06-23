@@ -8,12 +8,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
 public class SimpleSuggestionGenerator implements SuggestionGenerator {
+
+    @Inject
+    private Logger logger;
 
     private MovieManager movieManager;
 
@@ -28,9 +33,9 @@ public class SimpleSuggestionGenerator implements SuggestionGenerator {
                 .get(userId).stream()
                 .map(UserRating::getMovieId)
                 .collect(toList());
-        System.out.println("User rated movies " + userRatedMovies);
+        logger.log(Level.INFO, "User rated movies " + userRatedMovies);
         List<Long> highRatedMovies = getHighRatedMovies(userRatedMovies);
-        System.out.println("High rated movies " + highRatedMovies);
+        logger.log(Level.INFO, "High rated movies " + highRatedMovies);
         return highRatedMovies;
     }
 

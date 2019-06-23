@@ -4,12 +4,12 @@ metadata:
   name: recommendation
 spec:
   hosts:
-  - recommendation
+    - recommendation
   http:
-  - route:
-    - destination:
-        host: recommendation
-        subset: v1
+    - route:
+        - destination:
+            host: recommendation
+            subset: v1
 ---
 
 apiVersion: networking.istio.io/v1alpha3
@@ -19,7 +19,7 @@ metadata:
 spec:
   host: recommendation
   subsets:
-  - name: v1
-    labels:
-      version: v1
+    - name: v1
+      labels:
+        version: v1
 ---
