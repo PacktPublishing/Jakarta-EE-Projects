@@ -29,9 +29,8 @@ public class MovieManager {
                     .collect(groupingBy(UserRating::getUserId, toSet()));
 
             ratingsMap = data;
-            System.out.println(ratingsMap);
         } catch (Exception ioe) {
-            System.out.println(ioe.getMessage());
+            throw new IllegalStateException("Failed to init ratings data", ioe);
         }
     }
 
@@ -45,7 +44,7 @@ public class MovieManager {
         return Paths.get(uri);
     }
 
-    public UserRating getUserRating(String line) {
+    private UserRating getUserRating(String line) {
         String[] movie = line.split(",");
         return new UserRating(Long.valueOf(movie[0]),
                 Long.valueOf(movie[1]),

@@ -3,6 +3,8 @@ services:
   movie-cloud:
     build: ./movie-cloud
     image: "org.jakartaeeprojects/movie-cloud:1"
+    depends_on: 
+      - recommendation
     ports:
      - "8080:8080"
   

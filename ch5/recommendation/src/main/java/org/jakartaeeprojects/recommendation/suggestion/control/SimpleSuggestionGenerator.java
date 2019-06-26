@@ -4,7 +4,6 @@ import org.jakartaeeprojects.recommendation.suggestion.boundary.MovieManager;
 import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
 
 import javax.inject.Inject;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,12 +19,8 @@ public class SimpleSuggestionGenerator implements SuggestionGenerator {
     @Inject
     private Logger logger;
 
-    private MovieManager movieManager;
-
     @Inject
-    public SimpleSuggestionGenerator(MovieManager movieManager) {
-        this.movieManager = movieManager;
-    }
+    private MovieManager movieManager;
 
     @Override
     public List<Long> suggestMoviesForUser(long userId) {

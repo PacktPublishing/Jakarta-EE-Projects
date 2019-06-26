@@ -6,10 +6,19 @@ spec:
   hosts:
     - recommendation
   http:
-    - route:
-        - destination:
-            host: recommendation
-            subset: v1
+  - route:
+    - destination:
+        host: recommendation
+        subset: v1
+    fault:
+      # abort:
+      #   percentage:
+      #     value: 50
+      #   httpStatus: 500
+      delay:
+        percentage:
+          value: 80
+        fixedDelay: 5s
 ---
 
 apiVersion: networking.istio.io/v1alpha3

@@ -15,7 +15,7 @@ public class MovieCatalog {
     private List<Movie> movieList;
 
     @Inject
-    @ConfigProperty(name="movie.limit", defaultValue = "10")
+    @ConfigProperty(name = "movie.limit", defaultValue = "10")
     private Integer limit;
 
     @PostConstruct
@@ -36,7 +36,7 @@ public class MovieCatalog {
     }
 
     public List<Movie> list() {
-        return this.movieList.subList(0,limit);
+        return this.movieList.subList(0, limit);
     }
 
     public List<Long> defaultRecommendation() {
