@@ -9,5 +9,5 @@ build:
 deploy:
   kubectl:
     manifests:
-    - deployment/movie-cloud.yaml
-    - deployment/recommendation.yaml
+    - deployment/k8s/movie-cloud.yaml
+    - deployment/k8s/recommendation.yaml
