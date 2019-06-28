@@ -3,29 +3,36 @@ package org.jakartaeeprojects.recommendation.suggestion.entity;
 import java.util.Objects;
 
 public class UserRating {
-    private long userId;
-    private long movieId;
+    private int userId;
+    private int movieId;
     private int rating;
 
-    public UserRating(long userId, long movieId, int rating) {
+    public UserRating() {
+    }
+
+    private UserRating(int userId, int movieId, int rating) {
         this.userId = userId;
         this.movieId = movieId;
         this.rating = rating;
     }
 
-    public long getUserId() {
+    public static UserRating rate(int userId, int movieId, int rating) {
+        return new UserRating(userId, movieId, rating);
+    }
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public long getMovieId() {
+    public int getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(long movieId) {
+    public void setMovieId(int movieId) {
         this.movieId = movieId;
     }
 

@@ -1,23 +1,21 @@
 package org.jakartaeeprojects.moviecloud.movie.boundary;
 
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.jakartaeeprojects.moviecloud.movie.control.RecommendationClient;
 import org.jakartaeeprojects.moviecloud.movie.entity.Movie;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static java.util.stream.Collectors.toList;
+import java.util.Optional;
 
 @Path("/movies")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MovieResource {
-    @Inject
-    private Logger logger;
 
     @Inject
     private MovieCatalog catalog;
@@ -30,23 +28,41 @@ public class MovieResource {
         return catalog.list();
     }
 
+    @Fallback(fallbackMethod = "fallback")
+    @Timeout(500)
+    @Path("/fall")
     @GET
-    @Path("/recommended")
-    public List<Movie> getRecommended(@QueryParam("userId") long userId) {
-        logger.log(Level.INFO, "Getting rec for user Id " + userId);
-        List<Long> movieIds = this.client.getRecommendations(userId);
-        logger.log(Level.INFO, "Found movie Ids " + movieIds);
-
-        return catalog.list().stream()
-                .filter(m -> movieIds.contains(m.getId()))
-                .collect(toList());
+    public String checkTimeout() {
+        try {
+            Thread.sleep(700L);
+        } catch (InterruptedException e) {
+            //
+        }
+        return "Never from normal processing";
     }
 
-    @PUT
+    public String fallback() {
+        return "Fallback answer due to timeout";
+    }
+
+
+    @GET
     @Path("/{movieId}")
-    public void rate(@PathParam("movieId") long movieId, @QueryParam("userId") long userId,
-                     @QueryParam("rating") int rating) {
-        System.out.println("Movie " + movieId + ", with similar " + rating);
+    public Response getMovie(@PathParam("movieId") int movieId) {
+        Optional<Movie> movie = catalog.find(movieId);
+        if (movie.isEmpty()) {
+            return Response.status(Response.Status.NO_CONTENT)
+                    .build();
+        }
+        return Response.ok(movie.get())
+                .build();
     }
 
+    @GET
+    @Path("/recommend/{userId}")
+    public List<Movie> getRecommended(@PathParam("userId") int userId) {
+        List<Movie> suggested = this.client.getRecommendations(userId);
+        System.out.println("Suggested " + suggested);
+        return suggested;
+    }
 }

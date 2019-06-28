@@ -6,7 +6,7 @@ services:
     depends_on: 
       - recommendation
     ports:
-     - "8080:8080"
+     - "9080:9080"
   
   recommendation:
     build: ./recommendation

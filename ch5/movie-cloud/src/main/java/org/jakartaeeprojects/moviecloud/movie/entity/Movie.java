@@ -1,48 +1,63 @@
 package org.jakartaeeprojects.moviecloud.movie.entity;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Movie {
-    private long id;
+    private int id;
     private String name;
-    private String review;
-    private int avgRating;
+    private String plot;
+    private Genre genre;
+    private int rating;
 
-    public Movie(long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Movie() {
     }
 
-    public long getId() {
+    public Movie(int id, String name, Genre genre) {
+        this.id = id;
+        this.name = name;
+        this.genre = genre;
+        this.rating = new Random().nextInt(5) + 1;
+    }
+
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getReview() {
-        return review;
+    public String getPlot() {
+        return plot;
     }
 
-    public void setReview(String review) {
-        this.review = review;
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 
-    public int getAvgRating() {
-        return avgRating;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public void setAvgRating(int avgRating) {
-        this.avgRating = avgRating;
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     @Override
@@ -56,5 +71,16 @@ public class Movie {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", plot='" + plot + '\'' +
+                ", genre=" + genre +
+                ", rating=" + rating +
+                '}';
     }
 }

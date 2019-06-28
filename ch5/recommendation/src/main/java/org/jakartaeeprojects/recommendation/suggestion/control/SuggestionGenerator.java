@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface SuggestionGenerator {
 
-    List<Long> suggestMoviesForUser(long userId);
+    List<Integer> suggestMoviesForUser(int userId);
 
 }

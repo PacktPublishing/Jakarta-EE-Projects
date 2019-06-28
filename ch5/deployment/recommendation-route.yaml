@@ -10,15 +10,15 @@ spec:
     - destination:
         host: recommendation
         subset: v1
-    fault:
+#    fault:
       # abort:
       #   percentage:
       #     value: 50
       #   httpStatus: 500
-      delay:
-        percentage:
-          value: 80
-        fixedDelay: 5s
+#      delay:
+#        percentage:
+#          value: 20
+#        fixedDelay: 5s
 ---
 
 apiVersion: networking.istio.io/v1alpha3

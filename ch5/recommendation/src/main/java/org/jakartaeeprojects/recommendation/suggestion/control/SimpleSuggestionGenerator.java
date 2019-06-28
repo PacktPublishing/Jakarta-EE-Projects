@@ -1,6 +1,6 @@
 package org.jakartaeeprojects.recommendation.suggestion.control;
 
-import org.jakartaeeprojects.recommendation.suggestion.boundary.MovieManager;
+import org.jakartaeeprojects.recommendation.suggestion.boundary.RatingManager;
 import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
 
 import javax.inject.Inject;
@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 public class SimpleSuggestionGenerator implements SuggestionGenerator {
 
@@ -20,32 +21,30 @@ public class SimpleSuggestionGenerator implements SuggestionGenerator {
     private Logger logger;
 
     @Inject
-    private MovieManager movieManager;
+    private RatingManager ratingManager;
 
     @Override
-    public List<Long> suggestMoviesForUser(long userId) {
-        List<Long> userRatedMovies = movieManager.getRatingsMap()
+    public List<Integer> suggestMoviesForUser(int userId) {
+        logger.log(Level.INFO, "ratings " + ratingManager.getRatingsMap());
+        Set<Integer> userRatedMovies = ratingManager.getRatingsMap()
                 .get(userId).stream()
                 .map(UserRating::getMovieId)
-                .collect(toList());
-        logger.log(Level.INFO, "User rated movies " + userRatedMovies);
-        List<Long> highRatedMovies = getHighRatedMovies(userRatedMovies);
-        logger.log(Level.INFO, "High rated movies " + highRatedMovies);
-        return highRatedMovies;
+                .collect(toSet());
+        System.out.println("findTopRatedMovies ");
+        return findTopRatedMovies(userRatedMovies);
     }
 
-
-    private List<Long> getHighRatedMovies(List<Long> userRatedMovies) {
-        return getUserRatingStream()
-                .filter(ur -> !userRatedMovies.contains(ur.getMovieId()))
+    private List<Integer> findTopRatedMovies(Set<Integer> ratedMoviesByUser) {
+        return getAllUserRatingStream()
+                .filter(ur -> !ratedMoviesByUser.contains(ur.getMovieId()))
                 .sorted(comparing(UserRating::getRating).reversed())
                 .map(UserRating::getMovieId)
                 .distinct()
                 .collect(toList());
     }
 
-    private Stream<UserRating> getUserRatingStream() {
-        return movieManager.getRatingsMap().entrySet().stream()
+    private Stream<UserRating> getAllUserRatingStream() {
+        return ratingManager.getRatingsMap().entrySet().stream()
                 .map(Map.Entry::getValue)
                 .flatMap(Set::stream);
     }

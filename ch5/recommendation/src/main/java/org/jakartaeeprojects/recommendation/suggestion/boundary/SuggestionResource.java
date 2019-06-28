@@ -7,21 +7,31 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Path("suggestions")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SuggestionResource {
+    @Inject
+    private Logger logger;
 
     @Inject
     private SuggestionGenerator generator;
 
     @GET
     @Path("/{userId}")
-    public List<Long> findSuggested(@PathParam("userId") long userId) {
+    public List<Integer> findSuggested(@PathParam("userId") int userId) {
         try {
-            return generator.suggestMoviesForUser(userId);
+            System.out.println("findSuggested for user " + userId);
+            logger.log(Level.INFO,"Getting recommendation for user " + userId);
+            List<Integer> movies = generator.suggestMoviesForUser(userId);
+            logger.log(Level.INFO,"====================== Recommending ==================");
+            movies.forEach(System.out::println);
+            return movies;
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Failed to get suggestions for user " + userId, e);
             return Collections.EMPTY_LIST;
         }
     }
