@@ -1,0 +1,13 @@
+apiVersion: skaffold/v1beta11
+kind: Config
+build:
+  artifacts:
+  - image: org.jakartaeeprojects/movie-cloud
+    context: movie-cloud
+  - image: org.jakartaeeprojects/recommendation
+    context: recommendation
+deploy:
+  kubectl:
+    manifests:
+    - deployment/movie-cloud.yaml
+    - deployment/recommendation.yaml

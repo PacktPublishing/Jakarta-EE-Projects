@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: recommendation
-        image: org.jakartaeeprojects/recommendation:1
+        image: org.jakartaeeprojects/recommendation
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080        

@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: movie-cloud
-        image: org.jakartaeeprojects/movie-cloud:1
+        image: org.jakartaeeprojects/movie-cloud
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
