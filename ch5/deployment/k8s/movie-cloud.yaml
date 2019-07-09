@@ -12,7 +12,7 @@ spec:
   selector:
     app: movie-cloud
   ports:
-    - port: 9080
+    - port: 8080
       name: http
 ---
 
@@ -33,10 +33,10 @@ spec:
     spec:
       containers:
       - name: movie-cloud
-        image: org.jakartaeeprojects/movie-cloud:1
+        image: quarkus/movie-cloud-jvm:1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9080
+        - containerPort: 8080
         envFrom:
           - configMapRef:
               name: movie-config

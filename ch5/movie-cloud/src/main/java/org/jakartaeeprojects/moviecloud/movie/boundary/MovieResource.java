@@ -18,13 +18,13 @@ import java.util.logging.Logger;
 public class MovieResource {
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Inject
-    private MovieCatalog catalog;
+    MovieCatalog catalog;
 
     @Inject
-    private RecommendationClient client;
+    RecommendationClient client;
 
     @GET
     public List<Movie> getMovies() {
@@ -35,7 +35,7 @@ public class MovieResource {
     @Path("/{movieId}")
     public Response getMovie(@PathParam("movieId") int movieId) {
         Optional<Movie> movie = catalog.find(movieId);
-        if (movie.isEmpty()) {
+        if (!movie.isPresent()) {
             return Response.status(Response.Status.NO_CONTENT)
                     .build();
         }

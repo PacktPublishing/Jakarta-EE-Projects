@@ -19,13 +19,13 @@ import static java.util.stream.Collectors.toList;
 public class MovieCatalog {
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     private List<Movie> movieList;
 
     @Inject
     @ConfigProperty(name = "movie.limit", defaultValue = "5")
-    private Integer limit;
+    Integer limit;
 
     @PostConstruct
     public void init() {

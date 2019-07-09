@@ -3,6 +3,7 @@ package org.jakartaeeprojects.recommendation.suggestion.control;
 import org.jakartaeeprojects.recommendation.suggestion.boundary.RatingManager;
 import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
@@ -15,13 +16,14 @@ import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
+@Dependent
 public class SimpleSuggestionGenerator implements SuggestionGenerator {
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Inject
-    private RatingManager ratingManager;
+    RatingManager ratingManager;
 
     @Override
     public List<Integer> suggestMoviesForUser(int userId) {

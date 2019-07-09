@@ -12,7 +12,7 @@ spec:
   selector:
     app: recommendation
   ports:
-    - port: 9080
+    - port: 8080
       name: http
 ---
 
@@ -36,9 +36,9 @@ spec:
     spec:
       containers:
       - name: recommendation
-        image: org.jakartaeeprojects/recommendation:1
+        image: quarkus/recommendation-jvm:1
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9080        
+        - containerPort: 8080        
       restartPolicy: Always
 ---

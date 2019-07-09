@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class DemoClient {
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Fallback(fallbackMethod = "defaultResponse")
     @Timeout(500)

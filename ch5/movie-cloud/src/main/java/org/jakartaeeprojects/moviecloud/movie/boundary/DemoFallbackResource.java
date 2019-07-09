@@ -14,7 +14,7 @@ import java.util.List;
 public class DemoFallbackResource {
 
     @Inject
-    private DemoClient client;
+    DemoClient client;
 
     @Path("timeout")
     @GET

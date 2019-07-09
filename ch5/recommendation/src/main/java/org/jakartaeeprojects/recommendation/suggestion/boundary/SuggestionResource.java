@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 @Consumes(MediaType.APPLICATION_JSON)
 public class SuggestionResource {
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Inject
-    private SuggestionGenerator generator;
+    SuggestionGenerator generator;
 
     @GET
     @Path("/{userId}")

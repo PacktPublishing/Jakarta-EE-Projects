@@ -25,13 +25,13 @@ public class RecommendationClient {
 
     @Inject
     @ConfigProperty(name = "recommendation.service")
-    private String baseUrl;
+    String baseUrl;
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Inject
-    private MovieCatalog catalog;
+    MovieCatalog catalog;
 
     private Client client;
     private WebTarget target;

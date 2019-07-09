@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 public class RecommendationFallbackHandler implements FallbackHandler<List<Movie>> {
 
     @Inject
-    private Logger logger;
+    Logger logger;
 
     @Inject
-    private MovieCatalog catalog;
+    MovieCatalog catalog;
 
     @Override
     public List<Movie> handle(final ExecutionContext context) {

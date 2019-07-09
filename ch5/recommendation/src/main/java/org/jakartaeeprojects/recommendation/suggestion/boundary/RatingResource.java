@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 public class RatingResource {
 
     @Inject
-    private RatingManager ratingManager;
+    RatingManager ratingManager;
 
     @GET
     public Response get() {
