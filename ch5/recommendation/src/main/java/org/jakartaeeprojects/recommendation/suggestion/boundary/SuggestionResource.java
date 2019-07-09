@@ -24,11 +24,9 @@ public class SuggestionResource {
     @Path("/{userId}")
     public List<Integer> findSuggested(@PathParam("userId") int userId) {
         try {
-            System.out.println("findSuggested for user " + userId);
-            logger.log(Level.INFO,"Getting recommendation for user " + userId);
+            logger.log(Level.INFO,"Getting suggestions for user " + userId);
             List<Integer> movies = generator.suggestMoviesForUser(userId);
-            logger.log(Level.INFO,"====================== Recommending ==================");
-            movies.forEach(System.out::println);
+            logger.log(Level.INFO,"Recommending " + movies);
             return movies;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Failed to get suggestions for user " + userId, e);

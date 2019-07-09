@@ -30,7 +30,6 @@ public class SimpleSuggestionGenerator implements SuggestionGenerator {
                 .get(userId).stream()
                 .map(UserRating::getMovieId)
                 .collect(toSet());
-        System.out.println("findTopRatedMovies ");
         return findTopRatedMovies(userRatedMovies);
     }
 

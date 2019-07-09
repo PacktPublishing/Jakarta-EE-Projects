@@ -1,22 +1,24 @@
 package org.jakartaeeprojects.moviecloud.movie.entity;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 public class Movie {
     private int id;
     private String name;
-    private String plot;
-    private Genre genre;
+    private String synopsis;
     private int rating;
+    private int year;
+    private List<String> reviews;
 
     public Movie() {
     }
 
-    public Movie(int id, String name, Genre genre) {
+    public Movie(int id, int year, String name) {
         this.id = id;
+        this.year = year;
         this.name = name;
-        this.genre = genre;
         this.rating = new Random().nextInt(5) + 1;
     }
 
@@ -36,20 +38,12 @@ public class Movie {
         this.name = name;
     }
 
-    public String getPlot() {
-        return plot;
+    public String getSynopsis() {
+        return synopsis;
     }
 
-    public void setPlot(String plot) {
-        this.plot = plot;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public int getRating() {
@@ -58,6 +52,22 @@ public class Movie {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public List<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<String> reviews) {
+        this.reviews = reviews;
     }
 
     @Override
@@ -78,9 +88,8 @@ public class Movie {
         return "Movie{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", plot='" + plot + '\'' +
-                ", genre=" + genre +
                 ", rating=" + rating +
+                ", year=" + year +
                 '}';
     }
 }
