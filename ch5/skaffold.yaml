@@ -2,10 +2,14 @@ apiVersion: skaffold/v1beta11
 kind: Config
 build:
   artifacts:
-  - image: org.jakartaeeprojects/movie-cloud
+  - image: quarkus/movie-cloud-jvm
     context: movie-cloud
-  - image: org.jakartaeeprojects/recommendation
+    docker:
+        dockerfile: src/main/docker/Dockerfile.jvm
+  - image: quarkus/recommendation-jvm
     context: recommendation
+    docker:
+        dockerfile: src/main/docker/Dockerfile.jvm
 deploy:
   kubectl:
     manifests:
