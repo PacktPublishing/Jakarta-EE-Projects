@@ -20,6 +20,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: movie-cloud
+  labels:
+    app: movie-cloud
+    version: v1
 spec:
   replicas: 1
   selector:

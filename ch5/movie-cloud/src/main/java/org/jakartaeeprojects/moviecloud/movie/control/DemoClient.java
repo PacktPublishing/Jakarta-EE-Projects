@@ -1,5 +1,6 @@
 package org.jakartaeeprojects.moviecloud.movie.control;
 
+import org.eclipse.microprofile.faulttolerance.Bulkhead;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
@@ -23,7 +24,7 @@ public class DemoClient {
     public String longRunningOperation() {
         logger.log(Level.INFO, "invoked longRunningOperation");
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             //
         }
@@ -36,15 +37,17 @@ public class DemoClient {
 
 
     @Timeout(500)
+    @Bulkhead(2)
     @Fallback(RecommendationFallbackHandler.class)
     @CircuitBreaker(requestVolumeThreshold = 3)
     public List<Movie> externalServiceCall() {
-        logger.log(Level.INFO, "invoked externalServiceCall");
+        logger.log(Level.INFO, "==============  invoked externalServiceCall =======");
         try {
             TimeUnit.MILLISECONDS.sleep(800);
         } catch (InterruptedException e) {
             //
         }
+        logger.log(Level.INFO, "=================  return null =================");
         return null;
     }
 }

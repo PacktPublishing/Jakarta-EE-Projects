@@ -17,7 +17,7 @@ public class RatingResource {
 
     @GET
     public Response get() {
-        return Response.ok(this.ratingManager.getRatingsMap()).build();
+        return Response.ok(this.ratingManager.getRatings()).build();
     }
 
     @PUT

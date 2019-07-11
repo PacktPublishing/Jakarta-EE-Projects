@@ -18,7 +18,6 @@ public class DemoFallbackResource {
 
     @Path("timeout")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
     public String fallbackTest() {
         return client.longRunningOperation();
     }

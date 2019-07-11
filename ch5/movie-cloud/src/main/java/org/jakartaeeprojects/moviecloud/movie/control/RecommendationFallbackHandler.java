@@ -20,7 +20,7 @@ public class RecommendationFallbackHandler implements FallbackHandler<List<Movie
 
     @Override
     public List<Movie> handle(final ExecutionContext context) {
-        logger.log(Level.INFO, "Recommendation fallback");
+        logger.log(Level.INFO, "=================  FALLBACK ================= ");
         return catalog.topRatedMovies(4);
     }
 }

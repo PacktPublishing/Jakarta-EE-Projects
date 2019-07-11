@@ -6,19 +6,15 @@ import org.jakartaeeprojects.recommendation.suggestion.entity.UserRating;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
-import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 @Dependent
 public class SimpleSuggestionGenerator implements SuggestionGenerator {
-
     @Inject
     Logger logger;
 
@@ -27,27 +23,45 @@ public class SimpleSuggestionGenerator implements SuggestionGenerator {
 
     @Override
     public List<Integer> suggestMoviesForUser(int userId) {
-        logger.log(Level.INFO, "ratings " + ratingManager.getRatingsMap());
-        Set<Integer> userRatedMovies = ratingManager.getRatingsMap()
-                .get(userId).stream()
-                .map(UserRating::getMovieId)
+        Set<UserRating> userRatedMovies = ratingManager.getRatings().stream()
+                .filter(userRating -> userRating.getUserId() == userId)
                 .collect(toSet());
-        return findTopRatedMovies(userRatedMovies);
+        logger.log(Level.INFO, "User rated these movies");
+        userRatedMovies.stream().map(UserRating::getMovieId).forEach(System.out::println);
+
+        Set<Integer> similarUsers = usersWithSimilarInterests(userId, userRatedMovies);
+        logger.log(Level.INFO, "Similar users " + similarUsers);
+
+        return unRatedButLikedBySimilarUsers(userRatedMovies, similarUsers);
     }
 
-    private List<Integer> findTopRatedMovies(Set<Integer> ratedMoviesByUser) {
-        return getAllUserRatingStream()
-                .filter(ur -> !ratedMoviesByUser.contains(ur.getMovieId()))
-                .sorted(comparing(UserRating::getRating).reversed())
+    private List<Integer> unRatedButLikedBySimilarUsers(Set<UserRating> userRatedMovies, Set<Integer> similarUsers) {
+        return ratingManager.getRatings().stream()
+                .filter(ur -> similarUsers.contains(ur.getUserId()))
+                .filter(ur -> nonRatedMovie(userRatedMovies, ur))
+                .filter(ur -> ur.getRating() > 2)
                 .map(UserRating::getMovieId)
                 .distinct()
                 .collect(toList());
     }
 
-    private Stream<UserRating> getAllUserRatingStream() {
-        return ratingManager.getRatingsMap().entrySet().stream()
-                .map(Map.Entry::getValue)
-                .flatMap(Set::stream);
+    boolean nonRatedMovie(Set<UserRating> userRatings, UserRating target) {
+        return userRatings.stream()
+                .noneMatch(ur -> ur.getMovieId() == target.getMovieId());
+    }
+
+    Set<Integer> usersWithSimilarInterests(int userId, Set<UserRating> userRatedMovies) {
+        return ratingManager.getRatings().stream()
+                .filter(ur -> ur.getUserId() != userId)
+                .filter(ur -> matchingMovieRating(userRatedMovies, ur))
+                .map(UserRating::getUserId)
+                .collect(toSet());
+    }
+
+    private boolean matchingMovieRating(Set<UserRating> userRatings, UserRating target) {
+        return userRatings.stream()
+                .anyMatch(ur -> ur.getMovieId() == target.getMovieId()
+                        && ur.getRating() == target.getRating());
     }
 
 }

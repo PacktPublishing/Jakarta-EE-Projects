@@ -1,0 +1,37 @@
+@startuml
+
+skinparam backgroundColor #DEDEDE
+skinparam BoxPadding 10
+hide footbox
+
+actor Client
+
+box "<Movie Cloud>" #FEFEFE
+    participant Client
+	participant MovieResource
+	participant RecommendationClient
+end box
+
+box "<Recommendation>" #EEFEFF
+    participant SuggestionResource
+	participant SuggestionGenerator
+end box
+
+Client -> MovieResource: getRecommended
+
+MovieResource -> RecommendationClient: getRecommendations
+activate RecommendationClient
+RecommendationClient -> RecommendationClient: callRecommendation
+RecommendationClient -> SuggestionResource
+
+activate SuggestionResource
+SuggestionResource -> SuggestionGenerator: suggestMoviesForUser
+SuggestionGenerator -> SuggestionResource: movie ids
+SuggestionResource -> RecommendationClient: movie ids
+deactivate SuggestionResource
+RecommendationClient -> MovieResource: movies list
+deactivate RecommendationClient
+
+MovieResource -> Client: return movies
+
+@enduml

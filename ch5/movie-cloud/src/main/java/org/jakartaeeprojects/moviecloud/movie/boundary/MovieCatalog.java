@@ -41,6 +41,8 @@ public class MovieCatalog {
                 new Movie(9, 2017, "Jumanji: Welcome To The Jungle"),
                 new Movie(10, 1984, "The Terminator")
         );
+
+        //Below is just for printing and not really required
         logger.log(Level.INFO, "=============== init movies data ======================");
         this.movieList.sort(comparing(Movie::getRating).reversed());
         this.movieList.forEach(System.out::println);

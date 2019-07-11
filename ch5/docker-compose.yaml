@@ -2,12 +2,12 @@ version: '3'
 services:
   movie-cloud:
     build: ./movie-cloud
-    image: "org.jakartaeeprojects/movie-cloud:1"
+    image: "quarkus/movie-cloud-jvm:1"
     depends_on: 
       - recommendation
     ports:
-     - "9080:9080"
+     - "8080:8080"
   
   recommendation:
     build: ./recommendation
-    image: "org.jakartaeeprojects/recommendation:1"
+    image: "quarkus/recommendation-jvm:1"

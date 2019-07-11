@@ -28,7 +28,7 @@ spec:
     - destination:
         host: movie-cloud
         port:
-          number: 9080
+          number: 8080
         subset: v1
 ---
 
