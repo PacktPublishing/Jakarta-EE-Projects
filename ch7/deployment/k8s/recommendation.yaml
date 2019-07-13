@@ -1,0 +1,44 @@
+##################################################################################################
+# Recommendation service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation
+  labels:
+    app: recommendation
+spec:
+  type: NodePort
+  selector:
+    app: recommendation
+  ports:
+    - port: 8080
+      name: http
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation
+  labels:
+    app: recommendation
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendation
+  template:
+    metadata:
+      labels:
+        app: recommendation
+        version: v1
+    spec:
+      containers:
+      - name: recommendation
+        image: quarkus/recommendation-jvm:1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080        
+      restartPolicy: Always
+---

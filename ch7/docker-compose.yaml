@@ -1,0 +1,13 @@
+version: '3'
+services:
+  movie-cloud:
+    build: ./movie-cloud
+    image: "quarkus/movie-cloud-jvm:1"
+    depends_on: 
+      - recommendation
+    ports:
+     - "8080:8080"
+  
+  recommendation:
+    build: ./recommendation
+    image: "quarkus/recommendation-jvm:1"
